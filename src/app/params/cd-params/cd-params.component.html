@@ -1,0 +1,97 @@
+<p>cd-params works!</p>
+
+<div>
+    <div>
+        <h3>Parameters</h3>
+    </div>
+    <div class="flex-column">
+        <div class="cd-param">
+            <label for="nbr-points">Number of points on screen</label>
+            <input #nbrOfPoints type="number" name="nbr-points" id="nbr-points" [min]="cdParams.minNbrOfPoints"
+                [max]="cdParams.maxNbrOfPoints" [value]="cdParams.nbrOfPoints">
+            <div class="cd-param">
+            </div>
+
+        </div>
+
+        <div class="cd-param">
+            <label for="inverted-direction">Direction inverted</label>
+            <input #invertedDirection type="checkbox" name="inverted-direction" id="inverted-direction"
+                [checked]="cdParams.invertedDirection">
+        </div>
+
+        <div *ngIf="cdParams.targetPointOptions" class="cd-param">
+            <label for="target-point">Target point</label>
+            <select #targetPoint name="target-point" id="target-point">
+                <option *ngFor="let targetOption of cdParams.targetPointOptions; index as i" [value]="targetOption"
+                    [selected]="cdParams.targetPoint == i">
+                    {{targetOption}}
+                </option>
+            </select>
+        </div>
+
+        <div class="cd-param">
+            <label for="speed-rnd">Random speed of blocks</label>
+            <input #speedRnd type="checkbox" name="speed-rnd" id="speed-rnd" [checked]="cdParams.speedRnd">
+        </div>
+
+        <div *ngIf="cdParams.speedRnd" class="cd-param">
+            <label for="min-rnd-speed">Min</label>
+            <input #minRndSpeed type="number" name="min-rnd-speed" id="min-rnd-speed" [min]="cdParams.minMinSpeed"
+                [max]="cdParams.maxSpeed" [value]="cdParams.minSpeed">
+            <label for="max-rnd-speed">Max</label>
+            <input #minRndSpeed type="number" name="max-rnd-speed" id="max-rnd-speed" [min]="cdParams.minSpeed"
+                [max]="cdParams.maxMaxSpeed" [value]="cdParams.maxSpeed">
+        </div>
+
+        <div *ngIf="!cdParams.speedRnd" class="cd-param">
+            <label for="speed-val">Speed</label>
+            <input #minRndSpeed type="number" name="speed-val" id="speed-val" [min]="cdParams.minMinSpeed"
+                [max]="cdParams.maxMaxSpeed" [value]="cdParams.speedValue">
+        </div>
+
+        <div *ngIf="cdParams.blocksShapeOptions" class="cd-param">
+            <label for="blocks-shape">Blocks shape</label>
+            <select #blocksShape name="blocks-shape" id="blocks-shape">
+                <option *ngFor="let shapeOption of cdParams.blocksShapeOptions; index as i"
+                    [selected]="cdParams.blocksShape == i">
+                    {{shapeOption}}
+                </option>
+            </select>
+        </div>
+
+        <div *ngIf="cdParams.BlocksColorOptions" class="cd-param">
+            <label for="blocks-color">Blocks color</label>
+            <select #blocksColor name="blocks-color" id="blocks-color">
+                <option *ngFor="let blockColor of cdParams.BlocksColorOptions; index as i"
+                    [selected]="cdParams.blockColor == i">
+                    {{blockColor}}
+                </option>
+            </select>
+        </div>
+
+        <div class="cd-param">
+            <label for="bg-img">Background image</label>
+            <input #bgImg type="checkbox" name="bg-img" id="bg-img" [checked]="cdParams.bgImg">
+        </div>
+
+        <div class="cd-param">
+            <label for="clear-canvas-by-frame">Clear canvas after each fame drawing</label>
+            <input #clearCanvasByFrame type="checkbox" name="clear-canvas-by-frame" id="clear-canvas-by-frame"
+                [checked]="cdParams.clearCanvasByFrame">
+        </div>
+
+        <div *ngIf="cdParams.startPointOptions" class="cd-param">
+            <label for="start-point">Start point</label>
+            <select #startPoint name="start-point" id="start-point">
+                <option *ngFor="let startPoint of cdParams.startPointOptions; index as i" [selected]="startPoint == i">
+                    {{startPoint}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <button (click)="create()">Create</button>
+    <button (click)="play()">Play</button>
+    <button (click)="pause()">Pause</button>
+    <button (click)="reset()">Reset</button>
+</div>

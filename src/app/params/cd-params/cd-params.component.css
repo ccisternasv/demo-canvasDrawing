@@ -1,0 +1,17 @@
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+input, select{
+    max-width:100px;
+}
+
+.cd-param{
+    display: flex;
+    flex-direction: row;
+}
+
+.cd-param label{
+    width:300px;
+}
