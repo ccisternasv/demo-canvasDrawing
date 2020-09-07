@@ -1,4 +1,13 @@
 <div id="cd-wapper" class="flex-row">
-    <app-cd-canvas></app-cd-canvas>
-    <app-cd-params></app-cd-params>
+
+    <app-cd-canvas
+    [paramSettings] = 'paramSettings'
+    (ctx)="ctxReady($event)"
+    ></app-cd-canvas>
+
+    <app-cd-params
+    [paramSettings] = 'paramSettings'
+    (action)='action($event)'
+    ></app-cd-params>
+
 </div>

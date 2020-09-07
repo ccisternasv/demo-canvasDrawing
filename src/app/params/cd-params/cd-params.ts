@@ -4,21 +4,29 @@ export class CdParams {
     private _minNbrOfPoints: number;
     private _maxNbrOfPoints: number;
     private _nbrOfPoints: number;
-    private _invertedDirection: boolean;
+
     private _targetPoint: number;
     private _targetPointOptions: string[];
+
     private _speedRnd: boolean;
     private _speedValue: number;
+
     private _maxMaxSpeed: number;
     private _maxSpeed: number;
     private _minMinSpeed: number;
     private _minSpeed: number;
+    
     private _blocksShape: number;
     private _blocksShapeOptions: string[];
+    
     private _blocksColor: number;
+    private _blocksColorValue: string;
     private _blocksColorOptions: string[];
+    
     private _bgImg: boolean;
+    
     private _clearCanvasByFrame: boolean;
+    
     private _startPoint: number;
     private _startPointOptions: string[];
 
@@ -42,12 +50,6 @@ export class CdParams {
     }
     public set maxNbrOfPoints(value: number) {
         this._maxNbrOfPoints = value;
-    }
-    public get invertedDirection(): boolean {
-        return this._invertedDirection;
-    }
-    public set invertedDirection(value: boolean) {
-        this._invertedDirection = value;
     }
     public get targetPoint(): number {
         return this._targetPoint;
@@ -103,6 +105,12 @@ export class CdParams {
     public set blocksColor(value: number) {
         this._blocksColor = value;
     }
+    public get blocksColorValue(): string {
+        return this._blocksColorValue;
+    }
+    public set blocksColorValue(value: string) {
+        this._blocksColorValue = value;
+    }
     public get blocksColorOptions(): string[] {
         return this._blocksColorOptions;
     }
@@ -149,22 +157,29 @@ export class CdParams {
         this.minNbrOfPoints = 2;
         this.maxNbrOfPoints =1000;
         this.nbrOfPoints = 10;
-        this.invertedDirection = true;
+
         this.targetPoint = 0;
-        this.targetPointOptions = ["center", "border"];
+        this.targetPointOptions = ["center", "opposite to center", "random"];
+        
         this.speedRnd = true;
         this.speedValue = 1;
         this.minSpeed =1;
         this.minMinSpeed = 1;
         this.maxSpeed =10;
         this.maxMaxSpeed = 10;
+        
         this.blocksShape =0;
-        this.blocksShapeOptions = ["square", "circle", "triangle"];
+        this.blocksShapeOptions = ["square", "circle", "triangle", "line"];
+        
         this.blocksColor = 0;
         this.blocksColorOptions = ["color", "grayscale", "random"];
+        this.blocksColorValue = this.blocksColorOptions[this.blocksColor];
+        
         this.bgImg = true;
+        
         this.clearCanvasByFrame = true;
+        
         this.startPoint = 0;
-        this.startPointOptions = ["center", "random inside", "outside canvas"];
+        this.startPointOptions = ["random inside canvas", "random outside canvas", "top left", "top right", "bottom left", "bottom right", "center"];
     }
 }

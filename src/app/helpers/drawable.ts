@@ -5,4 +5,5 @@ export interface Drawable {
     drawingRequired:boolean;
     currentPosition:Point;
     currentSize:Size;
+    shape:string;
 }

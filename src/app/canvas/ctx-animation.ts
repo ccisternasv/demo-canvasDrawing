@@ -66,8 +66,12 @@ export class CtxAnimation {
         this.ctxMainCanvas.save();
 
        // this.drawTriangle(new Point(20, 20), 30);
+        const shape = 'square';
+       let drawingMethod = this.selectDrawingShapeMethod(shape);
         
-        points.forEach(point=> this.drawSquare(point.currentPosition, point.currentSize.w));
+        points.forEach(point=> {
+            drawingMethod(this.ctxMainCanvas, point.currentPosition, point.currentSize.w);
+        });
 
         //outline
         this.stroke();
@@ -77,15 +81,6 @@ export class CtxAnimation {
         this.ctxMainCanvas.restore();
     }
 
-    drawTriangle(position: Point, sideSize: number): void {
-        const triangleCoordinates: Point[] = this.calculateTriangleCoordinates(position, sideSize);
-
-        this.ctxMainCanvas.beginPath();
-        this.ctxMainCanvas.moveTo(triangleCoordinates[0].x, triangleCoordinates[0].y);
-        this.ctxMainCanvas.lineTo(triangleCoordinates[1].x, triangleCoordinates[1].y);
-        this.ctxMainCanvas.lineTo(triangleCoordinates[2].x, triangleCoordinates[2].y);
-        this.ctxMainCanvas.closePath();
-    }
 
     calculateTriangleCoordinates(initialPosition: Point, sideSize: number): Point[] {
 
@@ -97,38 +92,62 @@ export class CtxAnimation {
         return [a, b, c];
     }
 
-    drawSquare(position: Point, side: number):void{
+    drawTriangle(ctx:CanvasRenderingContext2D, position: Point, sideSize: number): void {
+        const triangleCoordinates: Point[] = this.calculateTriangleCoordinates(position, sideSize);
+
+        ctx.beginPath();
+        ctx.moveTo(triangleCoordinates[0].x, triangleCoordinates[0].y);
+        ctx.lineTo(triangleCoordinates[1].x, triangleCoordinates[1].y);
+        ctx.lineTo(triangleCoordinates[2].x, triangleCoordinates[2].y);
+        ctx.closePath();
+    }
+    drawSquare(ctx:CanvasRenderingContext2D, position: Point, side: number):void{
         const x1 = position.x;
         const y1 = position.y;
         const x2 = x1 + side;
         const y2 = y1 + side;
 
-        this.ctxMainCanvas.beginPath();
-        this.ctxMainCanvas.rect(x1, y1, x2, y2);
-        this.ctxMainCanvas.closePath();
+        ctx.beginPath();
+        ctx.rect(x1, y1, x2, y2);
+        ctx.closePath();
+        console.log("drawing square..", x1, y1, x2, y2);
     }
 
-    drawLine(position: Point, side: number):void{
+    drawLine(ctx:CanvasRenderingContext2D, position: Point, side: number):void{
         const x1 = position.x;
         const y1 = position.y;
         const x2 = x1 + side;
         const y2 = y1 + side;
 
-        this.ctxMainCanvas.beginPath();
-        this.ctxMainCanvas.moveTo(x1, y1);
-        this.ctxMainCanvas.lineTo(x2, y2);
-        this.ctxMainCanvas.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
     }
 
     //context.arc(x,y,r,sAngle,eAngle,counterclockwise);
-    drawCircle(position: Point, side: number):void{
+    drawCircle(ctx:CanvasRenderingContext2D, position: Point, side: number):void{
         const radius = Math.round(side/2);
         const x = position.x+radius;
         const y = position.y+radius;
 
-        this.ctxMainCanvas.beginPath();
-        this.ctxMainCanvas.arc(x, y,radius,0,2*Math.PI);
-        this.ctxMainCanvas.closePath();
+        ctx.beginPath();
+        ctx.arc(x, y,radius,0,2*Math.PI);
+        ctx.closePath();
     }
 
+    selectDrawingShapeMethod(shape:string){
+        switch(shape){
+            case 'circle':
+                return this.drawCircle;
+            case 'square':
+                return this.drawSquare;
+            case 'line':
+                return this.drawLine;
+            case 'triangle':
+                return this.drawTriangle;
+            default:
+                return null;
+        }
+    }
 }
